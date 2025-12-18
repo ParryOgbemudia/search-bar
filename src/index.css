@@ -1,29 +1,21 @@
 @import "tailwindcss";
 
 /* Universal box-sizing and border */
-* {
-  @apply border-border;
-}
-
 *,
 *::before,
 *::after {
+  @apply m-0;
   box-sizing: border-box;
 }
 
-/* Body defaults */
 body {
-  @apply bg-background text-foreground;
-  font-feature-settings: "rlig" 1, "calt" 1; /* Enable font ligatures */
+  @apply bg-white text-gray-900; /* ✅ These exist by default */
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* Remove default margins */
-h1, h2, h3, h4, h5, h6, p {
-  @apply m-0;
-}
-
 /* Focus styles for accessibility */
 *:focus-visible {
   @apply outline-2 outline-offset-2 outline-blue-500;
@@ -31,7 +23,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 /* Smooth images */
 img {
-  @apply max-w-full h-auto;
+  @apply h-auto max-w-full;
 }
 
 /* Better button defaults */
@@ -45,74 +37,16 @@ button {
   --color-secondary: #8b5cf6;
   --color-brand-light: #dbeafe;
   --color-brand-dark: #1e40af;
-  
+
   /* Custom Fonts */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Poppins', sans-serif;
-  
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+
   /* Custom Breakpoints */
   --breakpoint-3xl: 1920px;
   --breakpoint-xs: 475px;
-  
+
   /* Custom Spacing */
   --spacing-18: 4.5rem;
   --spacing-72: 18rem;
 }
-
-
-/* Remove tap highlight on mobile */
-@utility tab-highlight {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Hide scrollbars while keeping scroll functionality */
-@utility scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/* Smooth scrolling */
-@utility scroll-smooth {
-  scroll-behavior: smooth;
-}
-
-/* Text truncation with multiple lines */
-@utility line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Backdrop blur support */
-@utility backdrop-blur-glass {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-
-
-/* Apply styles on both hover AND focus */
-@variant hocus (&:hover, &:focus);
-
-/* Apply styles on hover OR focus */
-@variant hocus-visible (&:hover, &:focus-visible);
-
-/* Parent state - style child when parent is hovered */
-@variant parent-hover (.parent:hover &);
-
-/* Checked state with sibling */
-@variant peer-checked (.peer:checked ~ &);
-
-/* Browser support detection */
-@variant supports-grid (supports(display: grid));
-@variant supports-backdrop (supports(backdrop-filter: blur(1px)));
-
-/* Data attributes */
-@variant data-active ([data-active="true"]&);
-
-/* Custom group variants */
-@variant group-hover-scale (.group:hover &);
