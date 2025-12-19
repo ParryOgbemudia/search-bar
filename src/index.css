@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+/* Universal box-sizing and border */
+*,
+*::before,
+*::after {
+  @apply m-0;
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-white text-gray-900; /* ✅ These exist by default */
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Focus styles for accessibility */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-blue-500;
+}
+
+/* Smooth images */
+img {
+  @apply h-auto max-w-full;
+}
+
+/* Better button defaults */
+button {
+  @apply cursor-pointer;
+}
+
+@theme {
+  /* Custom Colors */
+  --color-primary: #3b82f6;
+  --color-secondary: #8b5cf6;
+  --color-brand-light: #dbeafe;
+  --color-brand-dark: #1e40af;
+
+  /* Custom Fonts */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+
+  /* Custom Breakpoints */
+  --breakpoint-3xl: 1920px;
+  --breakpoint-xs: 475px;
+
+  /* Custom Spacing */
+  --spacing-18: 4.5rem;
+  --spacing-72: 18rem;
+}
