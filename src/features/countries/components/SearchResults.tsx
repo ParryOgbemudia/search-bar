@@ -1,10 +1,18 @@
-import { useCountry } from "../context/CountryContext";
+import type { Country } from "../types/countrytype";
 
-function SearchResults() {
-  const { selectedCountry, loading, error, clearError } = useCountry();
+interface SearchResultsProps {
+  selectedCountry: Country | null;
+  isLoading: boolean;
+  error: Error | null;
+}
 
-  // Show loading state
-  if (loading) {
+function SearchResults({
+  selectedCountry,
+  isLoading,
+  error,
+}: SearchResultsProps) {
+  // Show loading while fetching full details
+  if (isLoading) {
     return (
       <div className="mt-8 flex w-full items-center justify-center">
         <div className="border-primary h-12 w-12 animate-spin rounded-full border-4 border-t-transparent"></div>
@@ -12,23 +20,19 @@ function SearchResults() {
     );
   }
 
-  // Show error state
+  // Show error if fetch failed
   if (error) {
     return (
       <div className="mt-8 w-full rounded-xl bg-red-50 p-6 text-center">
         <p className="text-lg font-semibold text-red-600">Error</p>
-        <p className="mt-2 text-red-500">{error}</p>
-        <button
-          onClick={clearError}
-          className="mt-4 rounded-lg bg-red-600 px-6 py-2 text-white transition-colors hover:bg-red-700"
-        >
-          Clear Error
-        </button>
+        <p className="mt-2 text-red-500">
+          {error instanceof Error ? error.message : "Failed to load country"}
+        </p>
       </div>
     );
   }
 
-  // Show selected country
+  // Show full country details
   if (selectedCountry) {
     const currencies = selectedCountry.currencies
       ? Object.values(selectedCountry.currencies)
@@ -121,9 +125,15 @@ function SearchResults() {
   // Empty state
   return (
     <div className="mt-8 w-full rounded-xl bg-gray-50 p-12 text-center">
-      <p className="text-xl text-gray-500">
-        Search for a country to see details
-      </p>
+      <div className="mx-auto max-w-md">
+        <div className="mb-4 text-6xl">🌍</div>
+        <p className="text-xl font-medium text-gray-700">
+          Discover any country
+        </p>
+        <p className="mt-2 text-gray-500">
+          Start typing to search by name, capital, country code, or currency
+        </p>
+      </div>
     </div>
   );
 }
